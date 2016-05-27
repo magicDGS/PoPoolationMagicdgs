@@ -98,7 +98,7 @@ my $pp=get_pileup_parser($fastqtype,$minCount,$minCoverage,$maxCoverage,$minQual
 
 my ($chrdec,$genehash)=Utility::read_gtf($gtffile);
 
-open my $ifh, "<",$pileupfile or die "Could not open pileup file";
+my $ifh = Pileup::get_pileup_fh($pileupfile);
 
 print "Start parsing the pileup file..\n";
 open my $ofh,">",$output or die "Could not open output file";

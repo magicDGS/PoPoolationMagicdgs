@@ -20,7 +20,7 @@
         my $annotation=shift;
         my $pp=shift;
         
-        open my $fh,"<",$file or die "Could not open file handle";
+        my $fh=Pileup::get_pileup_fh($pileupfile);
         
         return bless {
             annotation=>$annotation,
