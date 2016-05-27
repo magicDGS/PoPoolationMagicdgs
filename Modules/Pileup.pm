@@ -5,6 +5,7 @@
     use FindBin qw/$Bin/;
     use lib "$Bin";
     use Test;
+    use IO::Uncompress::Gunzip;
     
     require Exporter;
     our @ISA = qw(Exporter);
@@ -18,7 +19,16 @@ my $qualhash={
 # qualencoding,mincount,mincov,maxcov,minqual
 # my $pp=get_pileup_parser();
 
- 
+sub get_pileup_fh {
+    my $file=shift;
+    my $fh=undef;
+    if ($file=~/\.gz$/i) {
+        $fh = new IO::Uncompress::Gunzip $file, MultiStream => 1 or die "Could not open gzipped pileup $file  $!";
+    } else {
+        open $fh, "<", $file  or die "Could not open pileup, $!";
+    }
+    return $fh;
+}
  
 sub get_basic_mpileupparser
 {
